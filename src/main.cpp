@@ -98,10 +98,25 @@ void ReturnMovie()
 void BorrowAMovie()
 {
    std::cout << std::endl;
-   std::cin.ignore();
+
    std::cout << "===========Borrow movie=========" << std::endl;
    std::string title;
-   GetLinePrompt("Enter movie title:", &title);
+   std::cin.ignore();
+
+   bool valid = true;
+   do
+   {
+      GetLinePrompt("Enter movie title:", &title);
+      if (!movie_collection.DoesMovieExist(title))
+      {
+         std::cout << "Movie does not exist in library." << std::endl;
+         valid = false;
+      }
+      else
+      {
+         valid = true;
+      }
+   } while (!valid);
 
    Member *member = GetCurrentMember();
    Movie *movie = movie_collection.GetMovie(title);
