@@ -89,7 +89,7 @@ std::string SelectionArrayToString(int array[], int length)
 
         if (i == length - 1)
         {
-            trail = ":";
+            trail = ": ";
         }
 
         result += std::to_string(array[i]) + trail;

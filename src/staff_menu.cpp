@@ -90,7 +90,7 @@ std::string GetGenre()
 
 std::string GetClassification()
 {
-    std::cout << "Select the classification:" << std::endl;
+    std::cout << "Select the classification: " << std::endl;
     std::cout << " 1. General (G)" << std::endl;
     std::cout << " 2. Parental Guidance (PG)" << std::endl;
     std::cout << " 3. Mature (M15+)" << std::endl;

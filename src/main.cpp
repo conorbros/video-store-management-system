@@ -83,16 +83,37 @@ void DisplayAllMovies()
 void ReturnMovie()
 {
    std::cout << std::endl;
-   std::cin.ignore();
    std::cout << "===========Return a movie=============" << std::endl;
    std::string title;
-   GetLinePrompt("Enter movie title:", &title);
+   std::cin.ignore();
+
+   bool valid = true;
+   do
+   {
+      GetLinePrompt("Enter movie title: ", &title);
+      Movie *movie = movie_collection.GetMovie(title);
+
+      if (movie == NULL)
+      {
+         std::cout << "Movie does not exist in library." << std::endl;
+         valid = false;
+      }
+      else if (!GetCurrentMember()->IsMovieBorrowedByMember(movie))
+      {
+         std::cout << "You are not currently renting " + movie->title << std::endl;
+         valid = false;
+      }
+      else
+      {
+         valid = true;
+      }
+   } while (!valid);
 
    Movie *movie = movie_collection.GetMovie(title);
    movie->copies = movie->copies + 1;
 
    GetCurrentMember()->RemoveMovieFromCurrentMovies(movie);
-   std::cout << "You returned " + movie->title << std::endl;
+   std::cout << "You returned " + movie->title << std::endl << std::endl;
 }
 
 void BorrowAMovie()
@@ -106,7 +127,7 @@ void BorrowAMovie()
    bool valid = true;
    do
    {
-      GetLinePrompt("Enter movie title:", &title);
+      GetLinePrompt("Enter movie title: ", &title);
       if (!movie_collection.DoesMovieExist(title))
       {
          std::cout << "Movie does not exist in library." << std::endl;
