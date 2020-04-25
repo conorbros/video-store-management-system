@@ -4,11 +4,13 @@
 #include <array>
 #include <utils.h>
 #include <Member.h>
+#include <Movie.h>
 
 std::string STAFF_USERNAME = "staff";
 std::string STAFF_PASSWORD = "today123";
+bool staff_logged_in = false;
 
-bool login_to_staff_menu()
+void LoginToStaffMenu()
 {
     while (true)
     {
@@ -24,41 +26,21 @@ bool login_to_staff_menu()
         if (input_password != STAFF_PASSWORD || input_username != STAFF_USERNAME)
         {
             std::cout << "Login details are incorrect. Try again? (Y/N): ";
-            if (!get_y_or_n())
+            if (!GetYesOrNo())
             {
-                return false;
+                staff_logged_in = false;
+                return;
             }
         }
         else
         {
-            return true;
+            staff_logged_in = true;
+            return;
         }
     }
 }
 
-void register_new_member()
-{
-    std::cout << "\n==============New Member=======" << std::endl;
-    std::cout << "Enter first name: ";
-    std::string first_name;
-    std::cin >> first_name;
-
-    std::cout << "Enter last name: ";
-    std::string last_name;
-    std::cin >> last_name;
-
-    std::cout << "Enter phone number: ";
-    std::string phone_number;
-    std::cin >> phone_number;
-
-    std::cout << "Enter password: ";
-    int password;
-    std::cin >> password;
-
-    Member new_member(first_name, last_name, phone_number, password);
-}
-
-void staff_menu()
+void WriteStaffMenu()
 {
     std::cout << "===========Staff Menu==========" << std::endl;
     std::cout << " 1. Add a new movie DVD" << std::endl;
@@ -68,28 +50,139 @@ void staff_menu()
     std::cout << " 0. Return to main menu" << std::endl;
     std::cout << "===============================" << std::endl;
     std::cout << "\nPlease make a selection (1, 2, 3, 4 or 0 to return to main menu): ";
+}
 
-    int valids[] = {1, 2, 3, 4, 0};
-    int selection = get_menu_selection(valids, 5);
+std::string GetGenre()
+{
+    std::cout << "Select the genre" << std::endl;
+    std::cout << " 1. Drama" << std::endl;
+    std::cout << " 2. Adventure" << std::endl;
+    std::cout << " 3. Family" << std::endl;
+    std::cout << " 4. Action" << std::endl;
+    std::cout << " 5. Sci-Fi" << std::endl;
+    std::cout << " 6. Comedy" << std::endl;
+    std::cout << " 7. Thriller" << std::endl;
+    std::cout << " 8. Other" << std::endl;
+    std::cout << "Make selection (1-8): ";
 
-    if (selection == 0)
+    int valids[] = {1, 2, 3, 4, 5, 6, 7, 8};
+    int selection = GetMenuSelection(valids, 8);
+
+    if (selection == 1)
+        return "Drama";
+    if (selection == 2)
+        return "Adventure";
+    if (selection == 3)
+        return "Family";
+    if (selection == 4)
+        return "Action";
+    if (selection == 5)
+        return "Sci-Fi";
+    if (selection == 6)
+        return "Comedy";
+    if (selection == 7)
+        return "Thriller";
+    if (selection == 8)
+        return "Other";
+
+    throw std::invalid_argument("Invalid selection");
+}
+
+std::string GetClassification()
+{
+    std::cout << "Select the classification:" << std::endl;
+    std::cout << " 1. General (G)" << std::endl;
+    std::cout << " 2. Parental Guidance (PG)" << std::endl;
+    std::cout << " 3. Mature (M15+)" << std::endl;
+    std::cout << " 4. Mature Accompanied (MA15+)" << std::endl;
+    std::cout << "Make selection (1-4): ";
+
+    int valids[] = {1, 2, 3, 4};
+    int selection = GetMenuSelection(valids, 4);
+
+    if (selection == 1)
+        return "General (G)";
+    if (selection == 2)
+        return "Parental Guidance (PG)";
+    if (selection == 3)
+        return "Mature (M15+)";
+    if (selection == 4)
+        return "Mature Accompanied (MA15+)";
+
+    throw std::invalid_argument("Invalid selection");
+}
+
+void PrintEL(std::string string_to_print)
+{
+    std::cout << string_to_print << std::endl;
+}
+
+void Print(std::string string_to_print)
+{
+    std::cout << string_to_print;
+}
+
+Movie *GetNewMovie(std::string title)
+{
+    bool valid = false;
+
+    std::string director;
+    GetLinePrompt("Enter the director(s): ", &director);
+
+    std::string starring;
+    GetLinePrompt("Enter the starring actor(s): ", &starring);
+
+    std::string duration;
+    while (!valid)
     {
-        current_menu = MainMenu;
+        GetLinePrompt("Enter movie duration (minutes): ", &duration);
+        if (!IsStringNumbersOnly(duration))
+        {
+            std::cout << "Bad entry. Enter minutes in numbers only." << std::endl;
+        }
+        else
+        {
+            valid = true;
+        }
     }
 
-    if(selection == 1){
-        // add_new_movie();
+    valid = false;
+    std::string release_year;
+    while (!valid)
+    {
+        GetLinePrompt("Enter the release date (year): ", &release_year);
+        if (!IsStringNumbersOnly(release_year))
+        {
+            std::cout << "Bad entry. Enter release year in numbers only." << std::endl;
+        }
+        else if (release_year.length() != 4)
+        {
+            std::cout << "Bad entry. Year must be four digits." << std::endl;
+        }
+        else
+        {
+            valid = true;
+        }
     }
 
-    if(selection == 2){
-        // remove_movie();
+    std::string genre = GetGenre();
+    std::string classification = GetClassification();
+
+    int copies;
+    std::cout << "Enter the number of copies you wish to add: ";
+    valid = false;
+    while (!valid)
+    {
+        std::cin >> copies;
+        if (std::cin.fail())
+        {
+            std::cout << "You must enter copies as a number." << std::endl;
+            valid = false;
+        }else{
+            valid = true;
+        }
     }
 
-    if(selection == 3){
-        register_new_member();
-    }
-
-    if(selection == 4){
-        // find_member();
-    }
+    Movie *movie = new Movie(title, director, starring, duration, genre, classification, release_year, copies);
+    return movie;
 }

@@ -1,3 +1,5 @@
+#pragma once
+
 enum Menu
 {
    MainMenu,
@@ -7,6 +9,14 @@ enum Menu
 };
 extern Menu current_menu;
 
-int get_menu_selection(int valid_inputs[], int length);
+void PrintInt(int int_to_print);
 
-bool get_y_or_n();
+void GetLinePrompt(std::string to_display, std::string *result);
+
+int GetMenuSelection(int valid_inputs[], int length);
+
+bool GetYesOrNo();
+
+void ZeroToExit();
+
+bool IsStringNumbersOnly(std::string str);

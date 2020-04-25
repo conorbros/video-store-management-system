@@ -1,3 +1,12 @@
-void staff_menu();
+#pragma once
 
-bool login_to_staff_menu();
+#include "Movie.h"
+#include "Member.h"
+
+extern bool staff_logged_in;
+
+bool LoginToStaffMenu();
+
+void WriteStaffMenu();
+
+Movie * GetNewMovie(std::string title);

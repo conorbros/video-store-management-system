@@ -1,43 +1,39 @@
 #include <iostream>
+#include "Movie.h"
 
-enum Genre
+Movie::Movie(std::string title, std::string director, std::string starring, std::string duration, std::string genre, std::string classification, std::string release_year, int copies)
 {
-    Drama,
-    Adventure,
-    Family,
-    SciFi,
-    Comedy,
-    Animated,
-    Thriller,
-    Other
-};
+    this->title = title;
+    this->director = director;
+    this->starring = starring;
+    this->duration = duration;
+    this->genre = genre;
+    this->classification = classification;
+    this->release_year = release_year;
+    this->copies = copies;
+    this->borrowed = 0;
+}
 
-enum Classification
+Movie::Movie(std::string title, std::string director, std::string starring, std::string duration, std::string genre, std::string classification, std::string release_year, int copies, int borrowed)
 {
-    General,
-    ParentalGuidance,
-    Mature,
-    MatureAccompanied
-};
+    this->title = title;
+    this->director = director;
+    this->starring = starring;
+    this->duration = duration;
+    this->genre = genre;
+    this->classification = classification;
+    this->release_year = release_year;
+    this->copies = copies;
+    this->borrowed = borrowed;
+}
 
-class Movie
-{
-    std::string title;
-    std::string director;
-    std::string starring;
-    std::string duration;
-    Genre genre;
-    Classification classification;
-
-public:
-    Movie(std::string, std::string, std::string, std::string, Genre, Classification);
-};
-
-Movie::Movie(std::string a, std::string b, std::string c, std::string d, Genre e, Classification f){
-    title = a;
-    director = b;
-    starring = c;
-    duration = d;
-    genre = e;
-    classification = f;
+void Movie::PrintMovie(){
+    std:: cout << "Title: " + this->title << std::endl;
+    std:: cout << "Starring: " + this->starring << std::endl;
+    std:: cout << "Duration: " + this->duration + " minutes" << std::endl;
+    std:: cout << "Genre: " + this->genre << std::endl;
+    std:: cout << "Release Date: " + this->release_year << std::endl;
+    std:: cout << "Copies Avaiable: " + std::to_string(this->copies) << std::endl;
+    std:: cout << "Times Rented: " + std::to_string(this->borrowed) << std::endl;
+    std:: cout << std::endl;
 }

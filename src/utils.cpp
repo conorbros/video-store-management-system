@@ -6,33 +6,66 @@
 
 enum menu
 {
-   MainMenu,
-   StaffMenu,
-   MemberMenu,
-   ExitProgram
+    MainMenu,
+    StaffMenu,
+    MemberMenu,
+    ExitProgram
 };
 menu current_menu;
 
-MemberCollection member_collection;
+void ZeroToExit()
+{
+    std::cout << "Press 0 exit" << std::endl;
+    while (true)
+    {
+        char input;
+        std::cin >> input;
+        if (input == '0')
+            break;
+    }
+}
 
-bool is_digit(char ch)
+bool IsStringNumbersOnly(std::string str)
+{
+    for (size_t i = 0; i < str.length(); i++)
+    {
+        if (!isdigit(str[i]))
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+void PrintInt(int int_to_print)
+{
+    std::cout << std::to_string(int_to_print) << std::endl;
+}
+
+void GetLinePrompt(std::string to_display, std::string *result)
+{
+    std::cout << to_display;
+    getline(std::cin, *result);
+}
+
+bool IsDigit(char ch)
 {
     return isdigit(static_cast<unsigned char>(ch));
 }
 
-int to_int(char c)
+int ToInt(char c)
 {
     return c - 48;
 }
 
-bool is_menu_input_valid(char x, int valid_inputs[], int length)
+bool IsMenuInputValid(char x, int valid_inputs[], int length)
 {
-    if (!is_digit(x))
+    if (!IsDigit(x))
     {
         return false;
     }
 
-    int n = to_int(x);
+    int n = ToInt(x);
     for (int i = 0; i < length; i++)
     {
         if (valid_inputs[i] == n)
@@ -43,7 +76,7 @@ bool is_menu_input_valid(char x, int valid_inputs[], int length)
     return false;
 }
 
-std::string selection_array_to_string(int array[], int length)
+std::string SelectionArrayToString(int array[], int length)
 {
     std::string result = "";
     for (int i = 0; i < length; i++)
@@ -64,7 +97,7 @@ std::string selection_array_to_string(int array[], int length)
     return result;
 }
 
-bool get_y_or_n()
+bool GetYesOrNo()
 {
     bool valid = false;
     bool result;
@@ -92,17 +125,17 @@ bool get_y_or_n()
     return result;
 }
 
-int get_menu_selection(int valid_inputs[], int length)
+int GetMenuSelection(int valid_inputs[], int length)
 {
-    std::string error_message = "Bad entry. Enter " + selection_array_to_string(valid_inputs, length);
+    std::string error_message = "Bad entry. Enter " + SelectionArrayToString(valid_inputs, length);
     char n;
     std::cin >> n;
-    while (!is_digit(n) || !is_menu_input_valid(n, valid_inputs, length))
+    while (!IsDigit(n) || !IsMenuInputValid(n, valid_inputs, length))
     {
         std::cout << error_message;
         std::cin.clear();
         std::cin.ignore(256, '\n');
         std::cin >> n;
     }
-    return to_int(n);
+    return ToInt(n);
 }

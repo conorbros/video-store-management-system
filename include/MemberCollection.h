@@ -1,11 +1,19 @@
+#pragma once
+
 #include <iostream>
 #include <vector>
 #include <Member.h>
 
 class MemberCollection
 {
-    std::vector<Member> members;
+    Member *members[100];
+    int member_count = 0;
 
 public:
-    void RegisterMember(Member);
+    void RegisterMember(Member *member);
+    void PrintCurrentMembers();
+    bool CheckMemberDetails(std::string username, int password);
+    Member * GetMember(std::string username);
+    std::string GetMemberPhoneNumber(std::string username);
+    bool DoesMemberExist(std::string username);
 };
