@@ -4,6 +4,12 @@
 
 void MemberCollection::RegisterMember(Member *member)
 {
+    if (this->member_count == 100)
+    {
+        std::cout << "Could not register new member. Too many members already registered." << std::endl;
+        return;
+    }
+
     this->members[this->member_count] = member;
     this->member_count++;
 }

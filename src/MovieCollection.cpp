@@ -1,4 +1,5 @@
 #include <string>
+#include <iostream>
 #include "MovieCollection.h"
 #include "Movie.h"
 #include "Node.h"
@@ -6,12 +7,13 @@
 Node *MakeEmpty(Node *t)
 {
     if (t == NULL)
-        return NULL;
     {
-        MakeEmpty(t->left);
-        MakeEmpty(t->right);
-        delete t;
+        return NULL;
     }
+
+    MakeEmpty(t->left);
+    MakeEmpty(t->right);
+    delete t;
     return NULL;
 }
 
@@ -20,10 +22,87 @@ void p(std::string s)
     std::cout << s << std::endl;
 }
 
+void InOrderTraversalToArray(Node *t, Movie *arr[], int *i)
+{
+    if (t == NULL)
+    {
+        return;
+    }
+
+    InOrderTraversalToArray(t->left, arr, i);
+    arr[*i] = t->movie;
+    ++*i;
+    InOrderTraversalToArray(t->right, arr, i);
+}
+
+void Heapify(Movie *movies[], int n, int i)
+{
+    int smallest = i;  // Initialize largest as root
+    int l = 2 * i + 1; // left = 2*i + 1
+    int r = 2 * i + 2; // right = 2*i + 2
+
+    // If left child is larger than root
+    if (l < n && movies[l]->borrowed < movies[smallest]->borrowed)
+        smallest = l;
+
+    // If right child is larger than largest so far
+    if (r < n && movies[r]->borrowed < movies[smallest]->borrowed)
+        smallest = r;
+
+    // If largest is not root
+    if (smallest != i)
+    {
+        Movie *temp = movies[i];
+        movies[i] = movies[smallest];
+        movies[smallest] = temp;
+
+        // Recursively heapify the affected sub-tree
+        Heapify(movies, n, smallest);
+    }
+}
+
+void HeapSort(Movie *movies[], int n)
+{
+    for (int i = n / 2 - 1; i >= 0; i--)
+    {
+        Heapify(movies, n, i);
+    }
+
+    for (int i = n - 1; i >= 0; i--)
+    {
+        Movie *temp = movies[i];
+        movies[i] = movies[0];
+        movies[0] = temp;
+        Heapify(movies, i, 0);
+    }
+}
+
+void GetTopTenBorrowedMovies(Node *t, int n)
+{
+    Movie *movies[n];
+    int i = 0;
+    InOrderTraversalToArray(t, movies, &i);
+
+    HeapSort(movies, n);
+
+    if (n > 10)
+    {
+        n = 10;
+    }
+
+    for (int i = 0; i < n; i++)
+    {
+        movies[i]->PrintMovie();
+    }
+}
+
 void PrintInOrder(Node *t)
 {
     if (t == NULL)
+    {
         return;
+    }
+
     PrintInOrder(t->left);
     t->movie->PrintMovie();
     PrintInOrder(t->right);
@@ -31,79 +110,81 @@ void PrintInOrder(Node *t)
 
 Node *Insert(Movie *inserted_movie, Node *t)
 {
-    // If the node is null go there
-    if (t == NULL)
+    Node *new_node = new Node(inserted_movie, NULL, NULL, NULL);
+    Node *trav_node = t;
+    Node *trailing_node = NULL;
+
+    while (trav_node != NULL)
     {
-        t = new Node(inserted_movie, NULL, NULL, NULL);
+        trailing_node = trav_node;
+        if (inserted_movie->title < trav_node->GetTitle())
+            trav_node = trav_node->left;
+        else
+            trav_node = trav_node->right;
     }
-    // If the key is greater than the node's key go right
-    else if (inserted_movie->borrowed >= t->GetBorrowed())
+
+    if (trailing_node == NULL)
     {
-        t->right = Insert(inserted_movie, t->right);
-        t->right->parent = t;
+        trailing_node = new_node;
     }
-    // If the key is less than the node's key go left
-    else if (inserted_movie->borrowed < t->GetBorrowed())
+    else if (inserted_movie->title < trailing_node->GetTitle())
     {
-        t->left = Insert(inserted_movie, t->left);
-        t->left->parent = t;
+        trailing_node->left = new_node;
     }
-    return t;
+    else
+    {
+        trailing_node->right = new_node;
+    }
+    return trailing_node;
 }
 
 Node *FindMinimum(Node *t)
 {
     if (t == NULL)
+    {
         return NULL;
-    else if (t->left == NULL)
+    }
+
+    if (t->left == NULL)
+    {
         return t;
-    else
-        return FindMinimum(t->left);
+    }
+
+    return FindMinimum(t->left);
 }
 
-Node *Remove(std::string removed_movie_title, Node *t)
+Node *FindMaximum(Node *t)
 {
-    Node *temp;
     if (t == NULL)
     {
         return NULL;
     }
-    else if (t->movie->title == removed_movie_title)
+
+    if (t->right == NULL)
     {
-        temp = t;
-        if (t->left == NULL)
-            t = t->right;
-        else if (t->right == NULL)
-            t = t->left;
-        delete temp;
+        return t;
     }
-    Remove(removed_movie_title, t->left);
-    Remove(removed_movie_title, t->right);
-    return t;
+
+    return FindMaximum(t->right);
 }
 
 Node *Remove(Movie *movie, Node *t)
 {
-    // The given node is
-    // not found in BST
     if (t == NULL)
+    {
         return t;
+    }
 
-    // If the key to be deleted is smaller than the root's key,
-    // then it lies in left subtree
-    if (movie->borrowed < t->GetBorrowed())
+    if (movie->title < t->GetTitle())
+    {
         t->left = Remove(movie, t->left);
-
-    // If the key to be deleted is greater than the t's key,
-    // then it lies in right subtree
-    else if (movie->borrowed > t->GetBorrowed())
+    }
+    else if (movie->title > t->GetTitle())
+    {
         t->right = Remove(movie, t->right);
-
-    // if key is same as t's key, then This is the node
-    // to be deleted
+    }
     else
     {
-        // node with only one child or no child
         if (t->left == NULL)
         {
             Node *temp = t->right;
@@ -116,15 +197,8 @@ Node *Remove(Movie *movie, Node *t)
             free(t);
             return temp;
         }
-
-        // node with two children: Get the inorder successor (smallest
-        // in the right subtree)
         Node *temp = FindMinimum(t->right);
-
-        // Copy the inorder successor's content to this node
         t->movie = temp->movie;
-
-        // Delete the inorder successor
         t->right = Remove(temp->movie, temp);
     }
     return t;
@@ -132,25 +206,23 @@ Node *Remove(Movie *movie, Node *t)
 
 Node *Find(Node *t, std::string movie_title)
 {
-    if (t == NULL)
+    if (t == NULL || t->GetTitle() == movie_title)
     {
-        return NULL;
-    }
-    else if (t->GetTitle() == movie_title)
         return t;
-
-    Node *node = Find(t->left, movie_title);
-    if (node != NULL)
-    {
-        return node;
     }
-    node = Find(t->right, movie_title);
-    return node;
+
+    if (movie_title > t->GetTitle())
+    {
+        return Find(t->right, movie_title);
+    }
+
+    return Find(t->left, movie_title);
 }
 
 MovieCollection::MovieCollection()
 {
     this->root = NULL;
+    this->movie_count = 0;
 }
 
 MovieCollection::~MovieCollection()
@@ -160,13 +232,26 @@ MovieCollection::~MovieCollection()
 
 void MovieCollection::InsertMovie(Movie *movie)
 {
-    this->root = Insert(movie, root);
+    this->movie_count += 1;
+
+    if (this->root == NULL)
+    {
+        this->root = Insert(movie, this->root);
+    }
+    else
+    {
+        Insert(movie, this->root);
+    }
 }
 
 void MovieCollection::RemoveMovie(std::string movie_title)
 {
     Movie *movie = GetMovie(movie_title);
-    this->root = Remove(movie, this->root);
+    if (movie != NULL)
+    {
+        this->movie_count -= 1;
+        this->root = Remove(movie, this->root);
+    }
 }
 
 bool MovieCollection::DoesMovieExist(std::string movie_title)
@@ -176,10 +261,8 @@ bool MovieCollection::DoesMovieExist(std::string movie_title)
     {
         return false;
     }
-    else
-    {
-        return true;
-    }
+
+    return true;
 }
 
 Movie *MovieCollection::GetMovie(std::string movie_title)
@@ -189,10 +272,8 @@ Movie *MovieCollection::GetMovie(std::string movie_title)
     {
         return NULL;
     }
-    else
-    {
-        return node->movie;
-    }
+
+    return node->movie;
 }
 
 void MovieCollection::DisplayMoviesInOrder()
@@ -203,4 +284,9 @@ void MovieCollection::DisplayMoviesInOrder()
 void MovieCollection::Search(Movie *movie)
 {
     this->root = Find(root, movie->title);
+}
+
+void MovieCollection::DisplayTopTenBorrowedMovies()
+{
+    GetTopTenBorrowedMovies(this->root, this->movie_count);
 }

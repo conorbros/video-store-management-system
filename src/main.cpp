@@ -23,18 +23,26 @@ void AddDummyData()
    Member *new_member = new Member("c", "b", "test street", "123456789", 1234);
    member_collection.RegisterMember(new_member);
 
-   Movie *movie = new Movie("Movie 1", "Director", "Starting", "100", "Drama", "General", "1998", 5, 1);
+   Movie *movie = new Movie("ZMovie 1", "Director", "Starting", "100", "Drama", "General", "1998", 5, 1);
    movie_collection.InsertMovie(movie);
-   movie = new Movie("Movie 2", "Director", "Starting", "100", "Drama", "General", "1998", 5, 2);
+   movie = new Movie("XMovie 4", "Director", "Starting", "100", "Drama", "General", "1998", 5, 6);
    movie_collection.InsertMovie(movie);
-
-   movie = new Movie("Movie 3", "Director", "Starting", "100", "Drama", "General", "1998", 5, 3);
-   movie_collection.InsertMovie(movie);
-
-   movie = new Movie("Movie 4", "Director", "Starting", "100", "Drama", "General", "1998", 5, 6);
+   movie = new Movie("DMovie 2", "Director", "Starting", "100", "Drama", "General", "1998", 5, 2);
    movie_collection.InsertMovie(movie);
 
-   movie = new Movie("Movie 5", "Director", "Starting", "100", "Drama", "General", "1998", 5, 5);
+   movie = new Movie("BMovie 3", "Director", "Starting", "100", "Drama", "General", "1998", 5, 3);
+   movie_collection.InsertMovie(movie);
+
+   movie = new Movie("CMovie 4", "Director", "Starting", "100", "Drama", "General", "1998", 5, 6);
+   movie_collection.InsertMovie(movie);
+
+   movie = new Movie("FMovie 5", "Director", "Starting", "100", "Drama", "General", "1998", 5, 5);
+   movie_collection.InsertMovie(movie);
+
+   movie = new Movie("AMovie 5", "Director", "Starting", "100", "Drama", "General", "1998", 5, 5);
+   movie_collection.InsertMovie(movie);
+
+   movie = new Movie("GMovie 5", "Director", "Starting", "100", "Drama", "General", "1998", 5, 5);
    movie_collection.InsertMovie(movie);
 }
 
@@ -113,7 +121,8 @@ void ReturnMovie()
    movie->copies = movie->copies + 1;
 
    GetCurrentMember()->RemoveMovieFromCurrentMovies(movie);
-   std::cout << "You returned " + movie->title << std::endl << std::endl;
+   std::cout << "You returned " + movie->title << std::endl
+             << std::endl;
 }
 
 void BorrowAMovie()
@@ -184,7 +193,9 @@ void ShowMemberMenu()
 
    if (selection == 5)
    {
-      // display top 10 most popular movies
+      std::cout << "\n=======Top 10 Most Borrowed====" << std::endl
+                << std::endl;
+      movie_collection.DisplayTopTenBorrowedMovies();
    }
 }
 

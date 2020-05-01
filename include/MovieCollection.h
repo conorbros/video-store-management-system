@@ -5,6 +5,7 @@
 class MovieCollection
 {
     Node *root;
+    int movie_count;
 
 public:
     MovieCollection();
@@ -17,9 +18,12 @@ public:
 
     void DisplayMoviesInOrder();
 
+    void DisplayTopTenBorrowedMovies();
+
     void Search(Movie *movie);
 
     bool DoesMovieExist(std::string movie_title);
 
     Movie *GetMovie(std::string movie_title);
+
 };
