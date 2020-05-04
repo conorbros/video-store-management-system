@@ -117,7 +117,7 @@ Node *Insert(Movie *inserted_movie, Node *t)
     while (trav_node != NULL)
     {
         trailing_node = trav_node;
-        if (inserted_movie->title < trav_node->GetTitle())
+        if (inserted_movie->TitleStripPrefix() < trav_node->movie->TitleStripPrefix())
             trav_node = trav_node->left;
         else
             trav_node = trav_node->right;
@@ -127,7 +127,7 @@ Node *Insert(Movie *inserted_movie, Node *t)
     {
         trailing_node = new_node;
     }
-    else if (inserted_movie->title < trailing_node->GetTitle())
+    else if (inserted_movie->TitleStripPrefix() < trailing_node->movie->TitleStripPrefix())
     {
         trailing_node->left = new_node;
     }
@@ -175,11 +175,11 @@ Node *Remove(Movie *movie, Node *t)
         return t;
     }
 
-    if (movie->title < t->GetTitle())
+    if (movie->TitleStripPrefix() < t->movie->TitleStripPrefix())
     {
         t->left = Remove(movie, t->left);
     }
-    else if (movie->title > t->GetTitle())
+    else if (movie->TitleStripPrefix() > t->movie->TitleStripPrefix())
     {
         t->right = Remove(movie, t->right);
     }
