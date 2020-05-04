@@ -1,6 +1,10 @@
 #pragma once
 #include <Movie.h>
 
+/**
+ * @brief Class for representing nodes in the movie collection
+ * 
+ */
 class Node
 {
 public:

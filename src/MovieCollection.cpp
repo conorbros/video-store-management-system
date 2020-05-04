@@ -22,6 +22,13 @@ void p(std::string s)
     std::cout << s << std::endl;
 }
 
+/**
+ * @brief Traverses the movie collection in order and copies it to an array
+ * 
+ * @param t the root node
+ * @param arr the array to copy to
+ * @param i the current index
+ */
 void InOrderTraversalToArray(Node *t, Movie *arr[], int *i)
 {
     if (t == NULL)
@@ -37,26 +44,32 @@ void InOrderTraversalToArray(Node *t, Movie *arr[], int *i)
 
 void Heapify(Movie *movies[], int n, int i)
 {
-    int smallest = i;  // Initialize largest as root
-    int l = 2 * i + 1; // left = 2*i + 1
-    int r = 2 * i + 2; // right = 2*i + 2
+    // Initialize smallest as root
+    int smallest = i;
+    // Left
+    int l = 2 * i + 1;
+    // Right
+    int r = 2 * i + 2;
 
-    // If left child is larger than root
+    // If left child is smaller than root
     if (l < n && movies[l]->borrowed < movies[smallest]->borrowed)
+    {
         smallest = l;
+    }
 
-    // If right child is larger than largest so far
+    // If right child is smaller than smallest so far
     if (r < n && movies[r]->borrowed < movies[smallest]->borrowed)
+    {
         smallest = r;
+    }
 
-    // If largest is not root
+    // If smallest is not root: swap the smallest and the root
     if (smallest != i)
     {
         Movie *temp = movies[i];
         movies[i] = movies[smallest];
         movies[smallest] = temp;
 
-        // Recursively heapify the affected sub-tree
         Heapify(movies, n, smallest);
     }
 }
@@ -68,6 +81,7 @@ void HeapSort(Movie *movies[], int n)
         Heapify(movies, n, i);
     }
 
+    // Min key delete operations
     for (int i = n - 1; i >= 0; i--)
     {
         Movie *temp = movies[i];
@@ -85,6 +99,7 @@ void GetTopTenBorrowedMovies(Node *t, int n)
 
     HeapSort(movies, n);
 
+    // If there is more than 10 movies in the movie collection only display 10
     if (n > 10)
     {
         n = 10;
@@ -108,6 +123,13 @@ void PrintInOrder(Node *t)
     PrintInOrder(t->right);
 }
 
+/**
+ * @brief Inserts the supplied movie into the movie collection
+ * 
+ * @param inserted_movie The movie to insert
+ * @param t The root node
+ * @return Node* Pointer to the trailing node of the new node
+ */
 Node *Insert(Movie *inserted_movie, Node *t)
 {
     Node *new_node = new Node(inserted_movie, NULL, NULL, NULL);
@@ -138,6 +160,12 @@ Node *Insert(Movie *inserted_movie, Node *t)
     return trailing_node;
 }
 
+/**
+ * @brief Finds the minimum node (alphabetically) in the movie collection
+ * 
+ * @param t The root node
+ * @return Node* Pointer to the minimum node
+ */
 Node *FindMinimum(Node *t)
 {
     if (t == NULL)

@@ -9,8 +9,6 @@ enum Menu
 };
 extern Menu current_menu;
 
-void PrintInt(int int_to_print);
-
 void GetLinePrompt(std::string to_display, std::string *result);
 
 int GetMenuSelection(int valid_inputs[], int length);

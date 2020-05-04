@@ -4,6 +4,10 @@
 #include <vector>
 #include <Member.h>
 
+/**
+ * @brief Object to contain members of the video store system
+ * 
+ */
 class MemberCollection
 {
     Member *members[100];

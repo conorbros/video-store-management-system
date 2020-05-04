@@ -13,6 +13,11 @@ MemberCollection member_collection;
 MovieCollection movie_collection = MovieCollection();
 std::string current_member_username;
 
+/**
+ * @brief Get the currently logged in
+ * 
+ * @return Member* 
+ */
 Member *GetCurrentMember()
 {
    return member_collection.GetMember(current_member_username);
@@ -46,6 +51,10 @@ void AddDummyData()
    movie_collection.InsertMovie(movie);
 }
 
+/**
+ * @brief Display the member login
+ * 
+ */
 void LoginToMemberMenu()
 {
    while (true)
@@ -77,6 +86,10 @@ void LoginToMemberMenu()
    }
 }
 
+/**
+ * @brief Displays all movie information in the output
+ * 
+ */
 void DisplayAllMovies()
 {
    std::cout << std::endl;
@@ -88,6 +101,10 @@ void DisplayAllMovies()
    ZeroToExit();
 }
 
+/**
+ * @brief Return a movie from a member's account
+ * 
+ */
 void ReturnMovie()
 {
    std::cout << std::endl;
@@ -125,6 +142,10 @@ void ReturnMovie()
              << std::endl;
 }
 
+/**
+ * @brief Borrow a movie to a member's account
+ * 
+ */
 void BorrowAMovie()
 {
    std::cout << std::endl;
@@ -157,6 +178,10 @@ void BorrowAMovie()
    std::cout << std::endl;
 }
 
+/**
+ * @brief Displays the member menu in the output
+ * 
+ */
 void ShowMemberMenu()
 {
    WriteMemberMenu();
@@ -199,6 +224,10 @@ void ShowMemberMenu()
    }
 }
 
+/**
+ * @brief Registers a new member into the video store
+ * 
+ */
 void RegisterNewMember()
 {
    std::cout << "\n==============New Member=======" << std::endl;
@@ -265,6 +294,10 @@ void RegisterNewMember()
    member_collection.RegisterMember(new_member);
 }
 
+/**
+ * @brief Finds a member's phone number from their username
+ * 
+ */
 void FindMember()
 {
    std::cout << "\n==============Find Member=======" << std::endl;
@@ -298,6 +331,10 @@ void FindMember()
    ZeroToExit();
 }
 
+/**
+ * @brief Removes a movie from the video store
+ * 
+ */
 void RemoveMovie()
 {
    std::cout << "\n==============Remove Movie=======" << std::endl;
@@ -326,6 +363,10 @@ void RemoveMovie()
              << std::endl;
 }
 
+/**
+ * @brief Adds a new movie to the video store
+ * 
+ */
 void AddNewMovie()
 {
    std::cout << "\n==============Add Movie=======" << std::endl;
@@ -349,6 +390,10 @@ void AddNewMovie()
    movie_collection.InsertMovie(movie);
 }
 
+/**
+ * @brief Displays the staff menu in the output
+ * 
+ */
 void ShowStaffMenu()
 {
    WriteStaffMenu();
@@ -383,6 +428,10 @@ void ShowStaffMenu()
    }
 }
 
+/**
+ * @brief Displays the main menu in the output
+ * 
+ */
 void ShowMainMenu()
 {
    std::cout << "\n"

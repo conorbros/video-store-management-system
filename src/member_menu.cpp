@@ -7,6 +7,10 @@
 
 bool member_logged_in = false;
 
+/**
+ * @brief Writes the member menu to the screen
+ * 
+ */
 void WriteMemberMenu()
 {
     std::cout << "===========Member Menu==========" << std::endl;

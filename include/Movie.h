@@ -2,6 +2,10 @@
 
 #include <iostream>
 
+/**
+ * @brief Movie object to represent the video store's movie 
+ * 
+ */
 class Movie
 {
     std::string director;

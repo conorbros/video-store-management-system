@@ -13,6 +13,10 @@ enum menu
 };
 menu current_menu;
 
+/**
+ * @brief Gets the user to press 0 to exit
+ * 
+ */
 void ZeroToExit()
 {
     std::cout << "Press 0 exit" << std::endl;
@@ -25,6 +29,13 @@ void ZeroToExit()
     }
 }
 
+/**
+ * @brief Checks if a number contains numbers only
+ * 
+ * @param str the string to check
+ * @return true if the string is only numbers
+ * @return false if the string is not only numbers
+ */
 bool IsStringNumbersOnly(std::string str)
 {
     for (size_t i = 0; i < str.length(); i++)
@@ -37,27 +48,50 @@ bool IsStringNumbersOnly(std::string str)
     return true;
 }
 
-void PrintInt(int int_to_print)
-{
-    std::cout << std::to_string(int_to_print) << std::endl;
-}
-
+/**
+ * @brief Displays a prompt and returns the user's input
+ * 
+ * @param to_display prompt to display
+ * @param result pointer to return the result
+ */
 void GetLinePrompt(std::string to_display, std::string *result)
 {
     std::cout << to_display;
     getline(std::cin, *result);
 }
 
+/**
+ * @brief Returns whether a character is a digit or not
+ * 
+ * @param ch Character to check
+ * @return true if the character is a digit
+ * @return false if character is not a digit
+ */
 bool IsDigit(char ch)
 {
     return isdigit(static_cast<unsigned char>(ch));
 }
 
+/**
+ * @brief Converts a char to an int
+ * 
+ * @param c character to convert to an int
+ * @return int converted character
+ */
 int ToInt(char c)
 {
     return c - 48;
 }
 
+/**
+ * @brief Checks if a menu input value is valid against a list of valid inputs
+ * 
+ * @param x input to check
+ * @param valid_inputs  array of valid input
+ * @param length length of the valid inputs array
+ * @return true if the input is valid
+ * @return false if the input is not valid
+ */
 bool IsMenuInputValid(char x, int valid_inputs[], int length)
 {
     if (!IsDigit(x))
@@ -76,6 +110,13 @@ bool IsMenuInputValid(char x, int valid_inputs[], int length)
     return false;
 }
 
+/**
+ * @brief Converts a selection array to string for displaying in the input
+ * 
+ * @param array The array to convert to a string
+ * @param length The length of the array to convert to a string
+ * @return std::string The array converted to a string
+ */
 std::string SelectionArrayToString(int array[], int length)
 {
     std::string result = "";
@@ -97,6 +138,12 @@ std::string SelectionArrayToString(int array[], int length)
     return result;
 }
 
+/**
+ * @brief Get "Y" or "N" from the user
+ * 
+ * @return true if Y is inputted
+ * @return false if N is inputted
+ */
 bool GetYesOrNo()
 {
     bool valid = false;
@@ -125,6 +172,13 @@ bool GetYesOrNo()
     return result;
 }
 
+/**
+ * @brief Gets a selection
+ * 
+ * @param valid_inputs 
+ * @param length 
+ * @return int 
+ */
 int GetMenuSelection(int valid_inputs[], int length)
 {
     std::string error_message = "Bad entry. Enter " + SelectionArrayToString(valid_inputs, length);

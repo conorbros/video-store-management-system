@@ -10,6 +10,10 @@ std::string STAFF_USERNAME = "staff";
 std::string STAFF_PASSWORD = "today123";
 bool staff_logged_in = false;
 
+/**
+ * @brief Log the user into the staff menu
+ * 
+ */
 void LoginToStaffMenu()
 {
     while (true)
@@ -40,6 +44,10 @@ void LoginToStaffMenu()
     }
 }
 
+/**
+ * @brief Writes the staff menu to the output
+ * 
+ */
 void WriteStaffMenu()
 {
     std::cout << "===========Staff Menu==========" << std::endl;
@@ -52,6 +60,11 @@ void WriteStaffMenu()
     std::cout << "\nPlease make a selection (1, 2, 3, 4 or 0 to return to main menu): ";
 }
 
+/**
+ * @brief Get a genre from a list of possible selections
+ * 
+ * @return std::string the selected genre
+ */
 std::string GetGenre()
 {
     std::cout << "Select the genre" << std::endl;
@@ -88,6 +101,11 @@ std::string GetGenre()
     throw std::invalid_argument("Invalid selection");
 }
 
+/**
+ * @brief Get a classification from a list of possible selections
+ * 
+ * @return std::string the selected classifications
+ */
 std::string GetClassification()
 {
     std::cout << "Select the classification: " << std::endl;
@@ -112,16 +130,12 @@ std::string GetClassification()
     throw std::invalid_argument("Invalid selection");
 }
 
-void PrintEL(std::string string_to_print)
-{
-    std::cout << string_to_print << std::endl;
-}
-
-void Print(std::string string_to_print)
-{
-    std::cout << string_to_print;
-}
-
+/**
+ * @brief Gets a new movie from the user
+ * 
+ * @param title the title for the new movie
+ * @return Movie* Pointer to the new movie object
+ */
 Movie *GetNewMovie(std::string title)
 {
     bool valid = false;
@@ -178,7 +192,9 @@ Movie *GetNewMovie(std::string title)
         {
             std::cout << "You must enter copies as a number." << std::endl;
             valid = false;
-        }else{
+        }
+        else
+        {
             valid = true;
         }
     }

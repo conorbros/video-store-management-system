@@ -2,6 +2,10 @@
 #include "Movie.h"
 #include "Node.h"
 
+/**
+ * @brief Object to store movie's of the video store
+ * 
+ */
 class MovieCollection
 {
     Node *root;

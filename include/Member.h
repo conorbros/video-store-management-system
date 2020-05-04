@@ -6,19 +6,24 @@
 #include <vector>
 #include "Movie.h"
 
+/**
+ * @brief Member object to represent a user's member object
+ * 
+ */
 class Member
 {
     std::string first_name;
     std::string last_name;
     std::string address;
     int password;
+
 public:
     std::string username;
     std::string phone_number;
-    std::vector<Movie*> current_movies;
+    std::vector<Movie *> current_movies;
     Member(std::string first_name, std::string last_name, std::string address, std::string phone_number, int password);
     bool CheckDetails(std::string, int);
     void PrintCurrentMovies();
-    void RemoveMovieFromCurrentMovies(Movie * movie);
-    bool IsMovieBorrowedByMember(Movie * movie);
+    void RemoveMovieFromCurrentMovies(Movie *movie);
+    bool IsMovieBorrowedByMember(Movie *movie);
 };
