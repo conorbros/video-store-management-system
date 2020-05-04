@@ -4,14 +4,14 @@
 #include <array>
 #include <MemberCollection.h>
 
-enum menu
+enum Menu
 {
     MainMenu,
     StaffMenu,
     MemberMenu,
     ExitProgram
 };
-menu current_menu;
+Menu current_menu;
 
 /**
  * @brief Gets the user to press 0 to exit

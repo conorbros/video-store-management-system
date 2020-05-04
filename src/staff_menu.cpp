@@ -6,8 +6,8 @@
 #include <Member.h>
 #include <Movie.h>
 
-std::string STAFF_USERNAME = "staff";
-std::string STAFF_PASSWORD = "today123";
+const std::string staffUsername = "staff";
+const std::string staffPassword = "today123";
 bool staff_logged_in = false;
 
 /**
@@ -27,7 +27,7 @@ void LoginToStaffMenu()
         std::string input_password;
         std::cin >> input_password;
 
-        if (input_password != STAFF_PASSWORD || input_username != STAFF_USERNAME)
+        if (input_password != staffPassword || input_username != staffUsername)
         {
             std::cout << "Login details are incorrect. Try again? (Y/N): ";
             if (!GetYesOrNo())
