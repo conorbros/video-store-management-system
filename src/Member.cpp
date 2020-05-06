@@ -74,7 +74,7 @@ void Member::RemoveMovieFromCurrentMovies(Movie *movie)
     }
 
     // Push all the elements back one from the index
-    for (int c = index - 1; c < this->current_movie_count - 1; c++)
+    for (int c = index; c < this->current_movie_count - 1; c++)
     {
         current_movies[c] = current_movies[c + 1];
     }
