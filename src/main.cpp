@@ -70,12 +70,9 @@ void LoginToMemberMenu()
 
       if (!member_collection.CheckMemberDetails(input_username, input_password))
       {
-         std::cout << "Login details are incorrect. Try again? (Y/N): ";
-         if (!GetYesOrNo())
-         {
-            member_logged_in = false;
-            return;
-         }
+         std::cout << "Login details are incorrect.";
+         member_logged_in = false;
+         return;
       }
       else
       {
@@ -84,6 +81,7 @@ void LoginToMemberMenu()
          return;
       }
    }
+   std::cout << std::endl;
 }
 
 /**
@@ -112,38 +110,21 @@ void ReturnMovie()
    std::string title;
    std::cin.ignore();
 
-   bool valid = true;
-   do
-   {
-      GetLinePrompt("Enter movie title: ", &title);
-      Movie *movie = movie_collection.GetMovie(title);
-
-      if (movie == NULL)
-      {
-         std::cout << "Movie does not exist in library." << std::endl;
-         valid = false;
-      }
-      else if (!GetCurrentMember()->IsMovieBorrowedByMember(movie))
-      {
-         std::cout << "You are not currently renting " + movie->title << std::endl;
-         valid = false;
-      }
-      else
-      {
-         valid = true;
-      }
-   } while (!valid);
-
+   GetLinePrompt("Enter movie title: ", &title);
    Movie *movie = movie_collection.GetMovie(title);
-   movie->copies = movie->copies + 1;
+
+   if (movie == NULL)
+   {
+      std::cout << "Movie does not exist in library." << std::endl
+                << std::endl;
+      return;
+   }
 
    GetCurrentMember()->RemoveMovieFromCurrentMovies(movie);
-   std::cout << "You returned " + movie->title << std::endl
-             << std::endl;
 }
 
 /**
- * @brief Borrow a movie to a member's account
+ * @brief Shows the borrow movie menu and prompts for title input
  * 
  */
 void BorrowAMovie()
@@ -154,28 +135,17 @@ void BorrowAMovie()
    std::string title;
    std::cin.ignore();
 
-   bool valid = true;
-   do
-   {
-      GetLinePrompt("Enter movie title: ", &title);
-      if (!movie_collection.DoesMovieExist(title))
-      {
-         std::cout << "Movie does not exist in library." << std::endl;
-         valid = false;
-      }
-      else
-      {
-         valid = true;
-      }
-   } while (!valid);
-
-   Member *member = GetCurrentMember();
+   GetLinePrompt("Enter movie title: ", &title);
    Movie *movie = movie_collection.GetMovie(title);
-   movie->copies = movie->copies - 1;
-   member->current_movies.push_back(movie);
 
-   std::cout << "You borrowed " + movie->title << std::endl;
-   std::cout << std::endl;
+   if (movie == NULL)
+   {
+      std::cout << "Movie does not exist in the library." << std::endl
+                << std::endl;
+      return;
+   }
+
+   GetCurrentMember()->BorrowMovie(movie);
 }
 
 /**
