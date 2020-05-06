@@ -38,7 +38,7 @@ void Movie::PrintMovie()
     std::cout << "Duration: " + this->duration + " minutes" << std::endl;
     std::cout << "Genre: " + this->genre << std::endl;
     std::cout << "Release Date: " + this->release_year << std::endl;
-    std::cout << "Copies Avaiable: " + std::to_string(this->copies) << std::endl;
+    std::cout << "Copies Available: " + std::to_string(this->copies) << std::endl;
     std::cout << "Times Rented: " + std::to_string(this->borrowed) << std::endl;
     std::cout << std::endl;
 }

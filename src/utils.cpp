@@ -27,6 +27,7 @@ void ZeroToExit()
         if (input == '0')
             break;
     }
+    std::cout << std::endl;
 }
 
 /**
