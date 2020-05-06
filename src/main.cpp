@@ -190,6 +190,8 @@ void ShowMemberMenu()
 
    if (selection == 0)
    {
+      member_logged_in = false;
+      current_member_username = "";
       current_menu = MainMenu;
    }
 
@@ -221,6 +223,7 @@ void ShowMemberMenu()
       std::cout << "\n=======Top 10 Most Borrowed====" << std::endl
                 << std::endl;
       movie_collection.DisplayTopTenBorrowedMovies();
+      ZeroToExit();
    }
 }
 
