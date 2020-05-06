@@ -135,6 +135,7 @@ void Member::BorrowMovie(Movie *movie)
 
     this->current_movies[this->current_movie_count] = movie;
     movie->copies--;
+    movie->borrowed++;
     this->current_movie_count++;
 
     std::cout << "You borrowed " + movie->title << std::endl

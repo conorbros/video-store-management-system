@@ -33,15 +33,16 @@ void LoginToStaffMenu()
             if (!GetYesOrNo())
             {
                 staff_logged_in = false;
-                return;
+                break;
             }
         }
         else
         {
             staff_logged_in = true;
-            return;
+            break;
         }
     }
+    std::cout << std::endl;
 }
 
 /**

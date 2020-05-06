@@ -42,6 +42,13 @@ void InOrderTraversalToArray(Node *t, Movie *arr[], int *i)
     InOrderTraversalToArray(t->right, arr, i);
 }
 
+/**
+ * @brief Converts an array of movies to a heap
+ * 
+ * @param movies the array of movies to convert to a heap
+ * @param n length of array
+ * @param i index of root
+ */
 void Heapify(Movie *movies[], int n, int i)
 {
     // Initialize smallest as root
@@ -111,6 +118,11 @@ void GetTopTenBorrowedMovies(Node *t, int n)
     }
 }
 
+/**
+ * @brief Prints the movies to output in order
+ * 
+ * @param t root node
+ */
 void PrintInOrder(Node *t)
 {
     if (t == NULL)
@@ -196,6 +208,13 @@ Node *FindMaximum(Node *t)
     return FindMaximum(t->right);
 }
 
+/**
+ * @brief Removes a movie from the movie collection 
+ * 
+ * @param movie movie to remove
+ * @param t root node
+ * @return Node* pointer to root node
+ */
 Node *Remove(Movie *movie, Node *t)
 {
     if (t == NULL)
@@ -232,6 +251,13 @@ Node *Remove(Movie *movie, Node *t)
     return t;
 }
 
+/**
+ * @brief Finds a movie in the 
+ * 
+ * @param t 
+ * @param movie_title 
+ * @return Node* 
+ */
 Node *Find(Node *t, std::string movie_title)
 {
     if (t == NULL || t->GetTitle() == movie_title)

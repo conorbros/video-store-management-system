@@ -28,10 +28,12 @@ void AddDummyData()
    Member *new_member = new Member("c", "b", "test street", "123456789", 1234);
    member_collection.RegisterMember(new_member);
 
-   Movie *movie = new Movie("ZMovie 1", "Director", "Starting", "100", "Drama", "General", "1998", 5, 1);
+   Movie *movie = new Movie("ZMovie 1", "Director", "Starting", "100", "Drama", "General", "1998", 5, 0);
    movie_collection.InsertMovie(movie);
+
    movie = new Movie("XMovie 4", "Director", "Starting", "100", "Drama", "General", "1998", 5, 6);
    movie_collection.InsertMovie(movie);
+
    movie = new Movie("DMovie 2", "Director", "Starting", "100", "Drama", "General", "1998", 5, 2);
    movie_collection.InsertMovie(movie);
 
@@ -43,12 +45,39 @@ void AddDummyData()
 
    movie = new Movie("FMovie 5", "Director", "Starting", "100", "Drama", "General", "1998", 5, 5);
    movie_collection.InsertMovie(movie);
+   new_member->BorrowMovie(movie);
 
    movie = new Movie("AMovie 5", "Director", "Starting", "100", "Drama", "General", "1998", 5, 5);
    movie_collection.InsertMovie(movie);
+   new_member->BorrowMovie(movie);
 
    movie = new Movie("GMovie 5", "Director", "Starting", "100", "Drama", "General", "1998", 5, 5);
    movie_collection.InsertMovie(movie);
+   new_member->BorrowMovie(movie);
+
+   movie = new Movie("FMovie 4", "Director", "Starting", "100", "Drama", "General", "1998", 5, 5);
+   movie_collection.InsertMovie(movie);
+   new_member->BorrowMovie(movie);
+
+   movie = new Movie("LMovie 10", "Director", "Starting", "100", "Drama", "General", "1998", 5, 5);
+   movie_collection.InsertMovie(movie);
+   new_member->BorrowMovie(movie);
+
+   movie = new Movie("NMovie 12", "Director", "Starting", "100", "Drama", "General", "1998", 5, 5);
+   movie_collection.InsertMovie(movie);
+   new_member->BorrowMovie(movie);
+
+   movie = new Movie("RMovie 13", "Director", "Starting", "100", "Drama", "General", "1998", 5, 5);
+   movie_collection.InsertMovie(movie);
+   new_member->BorrowMovie(movie);
+
+   movie = new Movie("TMovie 14", "Director", "Starting", "100", "Drama", "General", "1998", 5, 5);
+   movie_collection.InsertMovie(movie);
+   new_member->BorrowMovie(movie);
+
+   movie = new Movie("YMovie 15", "Director", "Starting", "100", "Drama", "General", "1998", 5, 5);
+   movie_collection.InsertMovie(movie);
+   new_member->BorrowMovie(movie);
 }
 
 /**
@@ -57,30 +86,26 @@ void AddDummyData()
  */
 void LoginToMemberMenu()
 {
-   while (true)
+   std::cout << "\n===========Member Login=========" << std::endl;
+   std::cout << "Enter your username (LastNameFirstname): ";
+   std::string input_username;
+   std::cin >> input_username;
+
+   std::cout << "Enter password: ";
+   int input_password;
+   std::cin >> input_password;
+
+   if (!member_collection.CheckMemberDetails(input_username, input_password))
    {
-      std::cout << "\n===========Member Login=========" << std::endl;
-      std::cout << "Enter your username (LastNameFirstname): ";
-      std::string input_username;
-      std::cin >> input_username;
-
-      std::cout << "Enter password: ";
-      int input_password;
-      std::cin >> input_password;
-
-      if (!member_collection.CheckMemberDetails(input_username, input_password))
-      {
-         std::cout << "Login details are incorrect.";
-         member_logged_in = false;
-         return;
-      }
-      else
-      {
-         current_member_username = member_collection.GetMember(input_username)->username;
-         member_logged_in = true;
-         return;
-      }
+      std::cout << "Login details are incorrect.";
+      member_logged_in = false;
    }
+   else
+   {
+      current_member_username = member_collection.GetMember(input_username)->username;
+      member_logged_in = true;
+   }
+
    std::cout << std::endl;
 }
 
@@ -219,6 +244,7 @@ void RegisterNewMember()
    {
       std::cout << first_name + " " + last_name + " has already registered." << std::endl;
       ZeroToExit();
+      return;
    }
 
    std::cout << "Enter member's address: ";
@@ -265,6 +291,7 @@ void RegisterNewMember()
    Member *new_member = new Member(first_name, last_name, address, phone_number, password);
 
    member_collection.RegisterMember(new_member);
+   std::cout << std::endl;
 }
 
 /**
@@ -276,30 +303,23 @@ void FindMember()
    std::cout << "\n==============Find Member=======" << std::endl;
 
    std::string first_name, last_name, username;
+   std::cout << "Enter member's first name: ";
+   std::cin >> first_name;
 
-   bool valid = true;
-   do
+   std::cout << "Enter member's last name: ";
+   std::cin >> last_name;
+   username = last_name + first_name;
+
+   if (!member_collection.DoesMemberExist(username))
    {
-      std::cout << "Enter member's first name: ";
-      std::cin >> first_name;
-
-      std::cout << "Enter member's last name: ";
-      std::cin >> last_name;
-      username = last_name + first_name;
-
-      if (!member_collection.DoesMemberExist(username))
-      {
-         std::cout << "Member with that username does not exist." << std::endl;
-         valid = false;
-      }
-      else
-      {
-         valid = true;
-      }
-   } while (!valid);
+      std::cout << "Member with that name does not exist." << std::endl
+                << std::endl;
+      return;
+   }
 
    std::string phone_number = member_collection.GetMemberPhoneNumber(username);
-   std::cout << first_name + " " + last_name + "Phone number: " + phone_number << std::endl;
+   std::cout << first_name + " " + last_name + "'s phone number: " + phone_number << std::endl
+             << std::endl;
 
    ZeroToExit();
 }
@@ -311,25 +331,18 @@ void FindMember()
 void RemoveMovie()
 {
    std::cout << "\n==============Remove Movie=======" << std::endl;
-
-   bool valid = true;
    std::string title;
    std::cin.ignore();
-   do
+
+   GetLinePrompt("Enter the movie title: ", &title);
+   Movie *movie = movie_collection.GetMovie(title);
+
+   if (movie == NULL)
    {
-
-      GetLinePrompt("Enter the movie title: ", &title);
-
-      if (!movie_collection.DoesMovieExist(title))
-      {
-         std::cout << "Movie does not exist in the library." << std::endl;
-         valid = false;
-      }
-      else
-      {
-         valid = true;
-      }
-   } while (!valid);
+      std::cout << "Movie does not exist in the library." << std::endl
+                << std::endl;
+      return;
+   }
 
    movie_collection.RemoveMovie(title);
    std::cout << "You have removed " + title << std::endl
@@ -355,12 +368,29 @@ void AddNewMovie()
       int copies_to_add;
       std::cout << "This movie already exists in the library. Enter number of copies to add: ";
       std::cin >> copies_to_add;
-      movie->copies = movie->copies + copies_to_add;
+
+      if (std::cin.fail())
+      {
+         std::cin.clear();
+         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+         std::cout << "You must enter a number of copies to add." << std::endl;
+      }
+      else if (copies_to_add <= 0)
+      {
+         std::cout << "You must add a minimum of 1 extra copy to the library." << std::endl;
+      }
+      else
+      {
+         movie->copies += copies_to_add;
+      }
+
+      std::cout << std::endl;
       return;
    }
 
    movie = GetNewMovie(title);
    movie_collection.InsertMovie(movie);
+   std::cout << std::endl;
 }
 
 /**
