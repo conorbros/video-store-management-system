@@ -20,4 +20,5 @@ public:
     Member * GetMember(std::string username);
     std::string GetMemberPhoneNumber(std::string username);
     bool DoesMemberExist(std::string username);
+    void RemoveMovieFromAllMembersCurrentMovies(Movie *movie);
 };

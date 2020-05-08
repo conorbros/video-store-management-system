@@ -86,3 +86,20 @@ bool MemberCollection::DoesMemberExist(std::string username)
     }
     return false;
 }
+
+/**
+ * @brief Removes the given movies from all member's current movies
+ * 
+ * @param movie movie to remove from all members collections
+ */
+void MemberCollection::RemoveMovieFromAllMembersCurrentMovies(Movie *movie)
+{
+    for (int i = 0; i < this->member_count; i++)
+    {
+        Member *member = this->members[i];
+        if (member->IsBorrowingMovie(movie))
+        {
+            member->RemoveFromCurrentMovieArray(movie);
+        }
+    }
+}

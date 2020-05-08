@@ -58,7 +58,6 @@ void Heapify(Movie *movies[], int n, int i)
     // Right
     int r = 2 * i + 2;
 
-    // If left child is smaller than root
     if (l < n && movies[l]->borrowed < movies[smallest]->borrowed)
     {
         smallest = l;
