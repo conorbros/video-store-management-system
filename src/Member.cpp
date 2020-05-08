@@ -50,37 +50,20 @@ void Member::PrintCurrentMovies()
 }
 
 /**
- * @brief Removes the supplied movie from the member's currently borrowed movies
+ * @brief Returns a movie to the library if the member is borrowing it
  * 
  * @param movie the movie to remove
  */
-void Member::RemoveMovieFromCurrentMovies(Movie *movie)
+void Member::ReturnMovie(Movie *movie)
 {
-    if (!this->IsMovieBorrowedByMember(movie))
+    if (!this->IsBorrowingMovie(movie))
     {
         std::cout << "You are not currently renting " + movie->title << std::endl
                   << std::endl;
         return;
     }
 
-    // Find the index of the movie in the array
-    int index;
-    for (int i = 0; i < this->current_movie_count; i++)
-    {
-        if (this->current_movies[i] == movie)
-        {
-            index = i;
-        }
-    }
-
-    // Push all the elements back one from the index
-    for (int c = index; c < this->current_movie_count - 1; c++)
-    {
-        current_movies[c] = current_movies[c + 1];
-    }
-
-    this->current_movie_count--;
-    movie->copies++;
+    this->RemoveFromCurrentMovieArray(movie);
 
     std::cout << "You returned " + movie->title << std::endl
               << std::endl;
@@ -93,7 +76,7 @@ void Member::RemoveMovieFromCurrentMovies(Movie *movie)
  * @return true if the movie is currently borrowed by the member
  * @return false if the movie is not currently borrowed by the member
  */
-bool Member::IsMovieBorrowedByMember(Movie *movie)
+bool Member::IsBorrowingMovie(Movie *movie)
 {
     for (int i = 0; i < this->current_movie_count; i++)
     {
@@ -126,7 +109,7 @@ void Member::BorrowMovie(Movie *movie)
         return;
     }
 
-    if (this->IsMovieBorrowedByMember(movie))
+    if (this->IsBorrowingMovie(movie))
     {
         std::cout << "You have already borrowed this movie. You cannot borrow it again." << std::endl
                   << std::endl;
@@ -140,4 +123,32 @@ void Member::BorrowMovie(Movie *movie)
 
     std::cout << "You borrowed " + movie->title << std::endl
               << std::endl;
+}
+
+/**
+ * @brief Removes a movie from the member's current movies array
+ * 
+ * @param movie the movie to remove
+ */
+void Member::RemoveFromCurrentMovieArray(Movie *movie)
+{
+
+    // Find the index of the movie in the array
+    int index;
+    for (int i = 0; i < this->current_movie_count; i++)
+    {
+        if (this->current_movies[i] == movie)
+        {
+            index = i;
+        }
+    }
+
+    // Push all the elements back one from the index
+    for (int c = index; c < current_movie_count - 1; c++)
+    {
+        current_movies[c] = current_movies[c + 1];
+    }
+
+    this->current_movie_count--;
+    movie->copies++;
 }

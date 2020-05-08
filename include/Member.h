@@ -25,7 +25,8 @@ public:
     Member(std::string first_name, std::string last_name, std::string address, std::string phone_number, int password);
     bool CheckDetails(std::string, int);
     void PrintCurrentMovies();
-    void RemoveMovieFromCurrentMovies(Movie *movie);
+    void ReturnMovie(Movie *movie);
     void BorrowMovie(Movie *movie);
-    bool IsMovieBorrowedByMember(Movie *movie);
+    bool IsBorrowingMovie(Movie *movie);
+    void RemoveFromCurrentMovieArray(Movie *movie);
 };
