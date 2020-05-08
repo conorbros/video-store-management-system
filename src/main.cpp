@@ -145,7 +145,7 @@ void ReturnMovie()
       return;
    }
 
-   GetCurrentMember()->RemoveMovieFromCurrentMovies(movie);
+   GetCurrentMember()->ReturnMovie(movie);
 }
 
 /**
@@ -343,6 +343,8 @@ void RemoveMovie()
                 << std::endl;
       return;
    }
+
+   member_collection.RemoveMovieFromAllMembersCurrentMovies(movie);
 
    movie_collection.RemoveMovie(title);
    std::cout << "You have removed " + title << std::endl
