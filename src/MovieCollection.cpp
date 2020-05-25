@@ -431,7 +431,7 @@ void MovieCollection::DisplayTopTenBorrowedMovies()
     int *count = &x;
     GetTopTen(movies, count, this->root);
 
-    for (int i = 0; i < *count; i++)
+    for (int i = *count - 1; i >= 0; i--)
     {
         movies[i]->PrintMovie();
     }
