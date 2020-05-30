@@ -6,6 +6,12 @@
 #include "Movie.h"
 #include "Node.h"
 
+/**
+ * @brief Deletes every node in the tree
+ * 
+ * @param t the root node
+ * @return Node* 
+ */
 Node *MakeEmpty(Node *t)
 {
     if (t == NULL)
@@ -17,11 +23,6 @@ Node *MakeEmpty(Node *t)
     MakeEmpty(t->right);
     delete t;
     return NULL;
-}
-
-void p(std::string s)
-{
-    std::cout << s << std::endl;
 }
 
 /**
@@ -42,81 +43,6 @@ void InOrderTraversalToArray(Node *t, Movie *movies[], int *i)
     movies[*i] = t->movie;
     ++*i;
     InOrderTraversalToArray(t->right, movies, i);
-}
-
-/**
- * @brief Converts an array of movies to a heap
- * 
- * @param movies the array of movies to convert to a heap
- * @param n length of array
- * @param i index of root
- */
-void Heapify(Movie *movies[], int n, int i)
-{
-    // Initialize smallest as root
-    int smallest = i;
-    // Left
-    int l = 2 * i + 1;
-    // Right
-    int r = 2 * i + 2;
-
-    if (l < n && movies[l]->borrowed < movies[smallest]->borrowed)
-    {
-        smallest = l;
-    }
-
-    // If right child is smaller than smallest so far
-    if (r < n && movies[r]->borrowed < movies[smallest]->borrowed)
-    {
-        smallest = r;
-    }
-
-    // If smallest is not root: swap the smallest and the root
-    if (smallest != i)
-    {
-        Movie *temp = movies[i];
-        movies[i] = movies[smallest];
-        movies[smallest] = temp;
-
-        Heapify(movies, n, smallest);
-    }
-}
-
-void HeapSort(Movie *movies[], int n)
-{
-    for (int i = n / 2 - 1; i >= 0; i--)
-    {
-        Heapify(movies, n, i);
-    }
-
-    // Min key delete operations
-    for (int i = n - 1; i >= 0; i--)
-    {
-        Movie *temp = movies[i];
-        movies[i] = movies[0];
-        movies[0] = temp;
-        Heapify(movies, i, 0);
-    }
-}
-
-void GetTopTenBorrowedMovies(Node *t, int n)
-{
-    Movie *movies[n];
-    int i = 0;
-    InOrderTraversalToArray(t, movies, &i);
-
-    HeapSort(movies, n);
-
-    // If there is more than 10 movies in the movie collection only display 10
-    if (n > 10)
-    {
-        n = 10;
-    }
-
-    for (int i = 0; i < n; i++)
-    {
-        movies[i]->PrintMovie();
-    }
 }
 
 /**
@@ -346,7 +272,15 @@ void print(std::string str)
     std::cout << str << std::endl;
 }
 
-int get_index(Movie *a[], Movie *item, int count)
+/**
+ * @brief Gets the index to insert the new movie at
+ * 
+ * @param a array of movies currently in the top 10
+ * @param item new movie to insert
+ * @param count current of the movie array
+ * @return int index to insert at
+ */
+int GetIndex(Movie *a[], Movie *item, int count)
 {
     int ans = -1;
     int l = 0;
@@ -380,7 +314,7 @@ void AddToArray(Movie *movies[], int *count, Movie *movie)
         return;
     }
 
-    int location = get_index(movies, movie, *count);
+    int location = GetIndex(movies, movie, *count);
 
     if (*count < 10)
     {
