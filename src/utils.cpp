@@ -4,6 +4,10 @@
 #include <array>
 #include <MemberCollection.h>
 
+/**
+ * @brief Enum for the different menu types
+ * 
+ */
 enum Menu
 {
     MainMenu,
@@ -11,6 +15,10 @@ enum Menu
     MemberMenu,
     ExitProgram
 };
+/**
+ * @brief The current menu that the user is to be showed
+ * 
+ */
 Menu current_menu;
 
 /**
@@ -174,7 +182,7 @@ bool GetYesOrNo()
 }
 
 /**
- * @brief Gets a selection
+ * @brief Gets a selection from the supplied array of valid inputs, will contiune to prompt until a valid input is selected
  * 
  * @param valid_inputs 
  * @param length 

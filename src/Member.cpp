@@ -2,6 +2,15 @@
 #include <algorithm>
 #include "Member.h"
 
+/**
+ * @brief Construct a new Member:: Member object
+ * 
+ * @param first_name 
+ * @param last_name 
+ * @param address 
+ * @param phone_number 
+ * @param password 
+ */
 Member::Member(std::string first_name, std::string last_name, std::string address, std::string phone_number, int password)
 {
     this->first_name = first_name;

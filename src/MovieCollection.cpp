@@ -71,7 +71,7 @@ void PrintInOrder(Node *t)
  */
 Node *Insert(Movie *inserted_movie, Node *t)
 {
-    Node *new_node = new Node(inserted_movie, NULL, NULL, NULL);
+    Node *new_node = new Node(inserted_movie, NULL, NULL);
     Node *trav_node = t;
     Node *trailing_node = NULL;
 
@@ -120,6 +120,12 @@ Node *FindMinimum(Node *t)
     return FindMinimum(t->left);
 }
 
+/**
+ * @brief Finds the maximum node (alphabetically) in the movie collection
+ * 
+ * @param t The root node
+ * @return Node* Pointer to the maximum node
+ */
 Node *FindMaximum(Node *t)
 {
     if (t == NULL)
@@ -200,17 +206,30 @@ Node *Find(Node *t, std::string movie_title)
     return Find(t->left, movie_title);
 }
 
+/**
+ * @brief Construct a new Movie Collection:: Movie Collection object
+ * 
+ */
 MovieCollection::MovieCollection()
 {
     this->root = NULL;
     this->movie_count = 0;
 }
 
+/**
+ * @brief Destroy the Movie Collection:: Movie Collection object
+ * 
+ */
 MovieCollection::~MovieCollection()
 {
     this->root = MakeEmpty(root);
 }
 
+/**
+ * @brief Inserts a movie into hte movie collection
+ * 
+ * @param movie movie to insert
+ */
 void MovieCollection::InsertMovie(Movie *movie)
 {
     this->movie_count += 1;
@@ -225,6 +244,11 @@ void MovieCollection::InsertMovie(Movie *movie)
     }
 }
 
+/**
+ * @brief Removes the movie matching the supplied title from the movie collection
+ * 
+ * @param movie_title 
+ */
 void MovieCollection::RemoveMovie(std::string movie_title)
 {
     Movie *movie = GetMovie(movie_title);
@@ -235,6 +259,13 @@ void MovieCollection::RemoveMovie(std::string movie_title)
     }
 }
 
+/**
+ * @brief Returns true if a movie with the supplied title exists, false if not
+ * 
+ * @param movie_title 
+ * @return true 
+ * @return false 
+ */
 bool MovieCollection::DoesMovieExist(std::string movie_title)
 {
     Node *node = Find(this->root, movie_title);
@@ -246,6 +277,12 @@ bool MovieCollection::DoesMovieExist(std::string movie_title)
     return true;
 }
 
+/**
+ * @brief Gets the movie object with the supplied title
+ * 
+ * @param movie_title title of the movie to get
+ * @return Movie* movie matching the title supplied
+ */
 Movie *MovieCollection::GetMovie(std::string movie_title)
 {
     Node *node = Find(this->root, movie_title);
@@ -257,20 +294,15 @@ Movie *MovieCollection::GetMovie(std::string movie_title)
     return node->movie;
 }
 
+/**
+ * @brief Prints the movies in order
+ * 
+ */
 void MovieCollection::DisplayMoviesInOrder()
 {
     PrintInOrder(this->root);
 }
 
-void MovieCollection::Search(Movie *movie)
-{
-    this->root = Find(root, movie->title);
-}
-
-void print(std::string str)
-{
-    std::cout << str << std::endl;
-}
 
 /**
  * @brief Gets the index to insert the new movie at
@@ -306,6 +338,13 @@ int GetIndex(Movie *a[], Movie *item, int count)
     return ans + 1;
 }
 
+/**
+ * @brief Adds the supplied movie to the top 10 array
+ * 
+ * @param movies top 10 array
+ * @param count count of the top 10 array
+ * @param movie movie to add to the top 10 array
+ */
 void AddToArray(Movie *movies[], int *count, Movie *movie)
 {
     if (*count == 0)
@@ -334,6 +373,14 @@ void AddToArray(Movie *movies[], int *count, Movie *movie)
     movies[location] = movie;
 }
 
+/**
+ * @brief Fills the supplied movie array with the top 10 most borrowed movies
+ * 
+ * @param movies array to fill with the top 10 movies
+ * @param count current count of the array
+ * @param t root node of the BST
+ * @return int* current count of the array
+ */
 int *GetTopTen(Movie *movies[], int *count, Node *t)
 {
 
@@ -358,6 +405,10 @@ int *GetTopTen(Movie *movies[], int *count, Node *t)
     return count;
 }
 
+/**
+ * @brief Prints the top 10 movies to the screen
+ * 
+ */
 void MovieCollection::DisplayTopTenBorrowedMovies()
 {
     Movie *movies[10];

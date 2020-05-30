@@ -15,7 +15,6 @@ class MemberCollection
 
 public:
     void RegisterMember(Member *member);
-    void PrintCurrentMembers();
     bool CheckMemberDetails(std::string username, int password);
     Member * GetMember(std::string username);
     std::string GetMemberPhoneNumber(std::string username);

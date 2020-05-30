@@ -11,8 +11,7 @@ public:
     Movie *movie;
     Node *left;
     Node *right;
-    Node *parent;
-    Node(Movie *movie, Node *left, Node *right, Node *parent);
+    Node(Movie *movie, Node *left, Node *right);
     std::string GetTitle();
     int GetBorrowed();
 };

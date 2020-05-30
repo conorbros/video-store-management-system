@@ -2,6 +2,11 @@
 #include <vector>
 #include "MemberCollection.h"
 
+/**
+ * @brief Registers the supplied member object in the system
+ * 
+ * @param member member to register
+ */
 void MemberCollection::RegisterMember(Member *member)
 {
     if (this->member_count == 100)
@@ -14,16 +19,14 @@ void MemberCollection::RegisterMember(Member *member)
     this->member_count++;
 }
 
-void MemberCollection::PrintCurrentMembers()
-{
-    for (int i = 0; i < this->member_count; i++)
-    {
-        Member *member = this->members[i];
-        std::cout << member->username << std::endl
-                  << std::endl;
-    }
-}
-
+/**
+ * @brief Checks if the supplied username and password match for a member in the system
+ * 
+ * @param username member's username
+ * @param password member's password
+ * @return true 
+ * @return false 
+ */
 bool MemberCollection::CheckMemberDetails(std::string username, int password)
 {
     for (int i = 0; i < this->member_count; i++)

@@ -1,6 +1,18 @@
 #include <iostream>
 #include "Movie.h"
 
+/**
+ * @brief Construct a new Movie:: Movie object, without borrowed, this is used 
+ * 
+ * @param title 
+ * @param director 
+ * @param starring 
+ * @param duration 
+ * @param genre 
+ * @param classification 
+ * @param release_year 
+ * @param copies 
+ */
 Movie::Movie(std::string title, std::string director, std::string starring, std::string duration, std::string genre, std::string classification, std::string release_year, int copies)
 {
     this->title = title;
@@ -14,6 +26,19 @@ Movie::Movie(std::string title, std::string director, std::string starring, std:
     this->borrowed = 0;
 }
 
+/**
+ * @brief Construct a new Movie:: Movie object, supplying the borrowed count, this is used for filling up the dummy data
+ * 
+ * @param title 
+ * @param director 
+ * @param starring 
+ * @param duration 
+ * @param genre 
+ * @param classification 
+ * @param release_year 
+ * @param copies 
+ * @param borrowed 
+ */
 Movie::Movie(std::string title, std::string director, std::string starring, std::string duration, std::string genre, std::string classification, std::string release_year, int copies, int borrowed)
 {
     this->title = title;

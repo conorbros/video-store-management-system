@@ -6,6 +6,10 @@
 #include <Member.h>
 #include <Movie.h>
 
+/**
+ * @brief Staff menu login details
+ * 
+ */
 const std::string staffUsername = "staff";
 const std::string staffPassword = "today123";
 bool staff_logged_in = false;
