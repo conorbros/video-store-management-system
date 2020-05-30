@@ -11,3 +11,5 @@ Then run the following to start the program.
 ```bash
 ./bin/main
 ```
+
+The project contains some prefilled data to make testing the software easier, to remove this comment out line 475 in ```src/main.cpp```

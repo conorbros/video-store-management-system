@@ -476,9 +476,6 @@ int main()
 
    current_menu = MainMenu;
 
-   // TODO REMOVE WHEN TESTING COMPLETE
-   //movie_collection.DisplayTopTenBorrowedMovies();
-
    while (current_menu != ExitProgram)
    {
 
