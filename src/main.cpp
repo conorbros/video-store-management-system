@@ -2,6 +2,7 @@
 #include <string>
 #include <stdexcept>
 #include <array>
+#include <cstdlib>
 #include <utils.h>
 #include <limits>
 #include <staff_menu.h>
@@ -28,54 +29,54 @@ void AddDummyData()
    Member *new_member = new Member("c", "b", "test street", "123456789", 1234);
    member_collection.RegisterMember(new_member);
 
-   Movie *movie = new Movie("ZMovie 1", "Director", "Starting", "100", "Drama", "General", "1998", 5, 0);
+   Movie *movie = new Movie("ZMovie 1", "Director", "Starting", "100", "Drama", "General", "1998", 5, 3);
    movie_collection.InsertMovie(movie);
 
-   movie = new Movie("XMovie 4", "Director", "Starting", "100", "Drama", "General", "1998", 5, 6);
+   movie = new Movie("XMovie 4", "Director", "Starting", "100", "Drama", "General", "1998", 5, 29);
    movie_collection.InsertMovie(movie);
 
-   movie = new Movie("DMovie 2", "Director", "Starting", "100", "Drama", "General", "1998", 5, 2);
+   movie = new Movie("DMovie 2", "Director", "Starting", "100", "Drama", "General", "1998", 5, 92);
    movie_collection.InsertMovie(movie);
 
-   movie = new Movie("BMovie 3", "Director", "Starting", "100", "Drama", "General", "1998", 5, 3);
+   movie = new Movie("BMovie 3", "Director", "Starting", "100", "Drama", "General", "1998", 5, 1);
    movie_collection.InsertMovie(movie);
 
-   movie = new Movie("CMovie 4", "Director", "Starting", "100", "Drama", "General", "1998", 5, 6);
+   movie = new Movie("CMovie 4", "Director", "Starting", "100", "Drama", "General", "1998", 5, 99);
    movie_collection.InsertMovie(movie);
 
-   movie = new Movie("FMovie 5", "Director", "Starting", "100", "Drama", "General", "1998", 5, 5);
+   movie = new Movie("FMovie 5", "Director", "Starting", "100", "Drama", "General", "1998", 5, 55);
    movie_collection.InsertMovie(movie);
-   new_member->BorrowMovie(movie);
+   //new_member->BorrowMovie(movie);
 
-   movie = new Movie("AMovie 5", "Director", "Starting", "100", "Drama", "General", "1998", 5, 5);
-   movie_collection.InsertMovie(movie);
-   new_member->BorrowMovie(movie);
-
-   movie = new Movie("GMovie 5", "Director", "Starting", "100", "Drama", "General", "1998", 5, 5);
+   movie = new Movie("AMovie 5", "Director", "Starting", "100", "Drama", "General", "1998", 5, 29);
    movie_collection.InsertMovie(movie);
    new_member->BorrowMovie(movie);
 
-   movie = new Movie("FMovie 4", "Director", "Starting", "100", "Drama", "General", "1998", 5, 5);
+   movie = new Movie("GMovie 5", "Director", "Starting", "100", "Drama", "General", "1998", 5, 48);
    movie_collection.InsertMovie(movie);
    new_member->BorrowMovie(movie);
 
-   movie = new Movie("LMovie 10", "Director", "Starting", "100", "Drama", "General", "1998", 5, 5);
+   movie = new Movie("FMovie 4", "Director", "Starting", "100", "Drama", "General", "1998", 5, 51);
    movie_collection.InsertMovie(movie);
    new_member->BorrowMovie(movie);
 
-   movie = new Movie("NMovie 12", "Director", "Starting", "100", "Drama", "General", "1998", 5, 5);
+   movie = new Movie("LMovie 10", "Director", "Starting", "100", "Drama", "General", "1998", 5, 25);
    movie_collection.InsertMovie(movie);
    new_member->BorrowMovie(movie);
 
-   movie = new Movie("RMovie 13", "Director", "Starting", "100", "Drama", "General", "1998", 5, 5);
+   movie = new Movie("NMovie 12", "Director", "Starting", "100", "Drama", "General", "1998", 5, 20);
    movie_collection.InsertMovie(movie);
    new_member->BorrowMovie(movie);
 
-   movie = new Movie("TMovie 14", "Director", "Starting", "100", "Drama", "General", "1998", 5, 5);
+   movie = new Movie("RMovie 13", "Director", "Starting", "100", "Drama", "General", "1998", 5, 43);
    movie_collection.InsertMovie(movie);
    new_member->BorrowMovie(movie);
 
-   movie = new Movie("YMovie 15", "Director", "Starting", "100", "Drama", "General", "1998", 5, 5);
+   movie = new Movie("TMovie 14", "Director", "Starting", "100", "Drama", "General", "1998", 5, 23);
+   movie_collection.InsertMovie(movie);
+   new_member->BorrowMovie(movie);
+
+   movie = new Movie("YMovie 15", "Director", "Starting", "100", "Drama", "General", "1998", 5, 14);
    movie_collection.InsertMovie(movie);
    new_member->BorrowMovie(movie);
 }
@@ -250,6 +251,7 @@ void RegisterNewMember()
    std::cout << "Enter member's address: ";
    std::string address;
    std::cin >> address;
+   std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
    std::string phone_number;
    bool valid = true;
@@ -473,6 +475,10 @@ int main()
    AddDummyData();
 
    current_menu = MainMenu;
+
+   // TODO REMOVE WHEN TESTING COMPLETE
+   //movie_collection.DisplayTopTenBorrowedMovies();
+
    while (current_menu != ExitProgram)
    {
 
