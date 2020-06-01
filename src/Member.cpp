@@ -135,6 +135,24 @@ void Member::BorrowMovie(Movie *movie)
 }
 
 /**
+ * @brief Borrows a movie to a member's account without printing any status updates, used to construct dummy data
+ * 
+ * @param movie movie to borrow
+ */
+void Member::AddMovieToCollection(Movie *movie)
+{
+    if (movie->copies <= 0 || this->current_movie_count == 10 || this->IsBorrowingMovie(movie))
+    {
+        return;
+    }
+
+    this->current_movies[this->current_movie_count] = movie;
+    movie->copies--;
+    movie->borrowed++;
+    this->current_movie_count++;
+}
+
+/**
  * @brief Removes a movie from the member's current movies array
  * 
  * @param movie the movie to remove

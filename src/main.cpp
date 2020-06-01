@@ -46,39 +46,39 @@ void AddDummyData()
 
    movie = new Movie("FMovie 5", "Director", "Starting", "100", "Drama", "General", "1998", 5, 55);
    movie_collection.InsertMovie(movie);
-   //new_member->BorrowMovie(movie);
+   new_member->AddMovieToCollection(movie);
 
    movie = new Movie("AMovie 5", "Director", "Starting", "100", "Drama", "General", "1998", 5, 29);
    movie_collection.InsertMovie(movie);
-   new_member->BorrowMovie(movie);
+   new_member->AddMovieToCollection(movie);
 
    movie = new Movie("GMovie 5", "Director", "Starting", "100", "Drama", "General", "1998", 5, 48);
    movie_collection.InsertMovie(movie);
-   new_member->BorrowMovie(movie);
+   new_member->AddMovieToCollection(movie);
 
    movie = new Movie("FMovie 4", "Director", "Starting", "100", "Drama", "General", "1998", 5, 51);
    movie_collection.InsertMovie(movie);
-   new_member->BorrowMovie(movie);
+   new_member->AddMovieToCollection(movie);
 
    movie = new Movie("LMovie 10", "Director", "Starting", "100", "Drama", "General", "1998", 5, 25);
    movie_collection.InsertMovie(movie);
-   new_member->BorrowMovie(movie);
+   new_member->AddMovieToCollection(movie);
 
    movie = new Movie("NMovie 12", "Director", "Starting", "100", "Drama", "General", "1998", 5, 20);
    movie_collection.InsertMovie(movie);
-   new_member->BorrowMovie(movie);
+   new_member->AddMovieToCollection(movie);
 
    movie = new Movie("RMovie 13", "Director", "Starting", "100", "Drama", "General", "1998", 5, 43);
    movie_collection.InsertMovie(movie);
-   new_member->BorrowMovie(movie);
+   new_member->AddMovieToCollection(movie);
 
    movie = new Movie("TMovie 14", "Director", "Starting", "100", "Drama", "General", "1998", 5, 23);
    movie_collection.InsertMovie(movie);
-   new_member->BorrowMovie(movie);
+   new_member->AddMovieToCollection(movie);
 
    movie = new Movie("YMovie 15", "Director", "Starting", "100", "Drama", "General", "1998", 5, 14);
    movie_collection.InsertMovie(movie);
-   new_member->BorrowMovie(movie);
+   new_member->AddMovieToCollection(movie);
 }
 
 /**

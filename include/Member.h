@@ -27,6 +27,7 @@ public:
     void PrintCurrentMovies();
     void ReturnMovie(Movie *movie);
     void BorrowMovie(Movie *movie);
+    void AddMovieToCollection(Movie * movie);
     bool IsBorrowingMovie(Movie *movie);
     void RemoveFromCurrentMovieArray(Movie *movie);
 };
