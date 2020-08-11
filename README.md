@@ -29,9 +29,9 @@ Top 10 Algorithm
 ALGORITHM GetIndex(Movies[10], Movie, Count)
     // Gets the index that the supplied Movie should be inserted into
     // Inputs: An array Movies containing the current largest elements, 
-// Movie the Movie to insert
-// Count the number of Movies in the Movies Array
-// Output: Returns the index
+    // Movie the Movie to insert
+    // Count the number of Movies in the Movies Array
+    // Output: Returns the index
  
 Ans ← -1 
 L ← 0
