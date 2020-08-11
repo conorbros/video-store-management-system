@@ -102,7 +102,7 @@ ALGORITHM GetTopTen(Movies[10], Count, T)
     return Count
 ```
 
-This algorithm comprises recursive calls to itself, an in order traversal of the binary search tree and AddToArray. This basic operation chosen for this algorithm is checking if Count is below 10 or going to the else block. This algorithm traverses the entire binary search tree and performs this operation at each node.
+This algorithm comprises of recursive calls to itself, an in order traversal of the binary search tree and AddToArray. This basic operation chosen for this algorithm is checking if Count is below 10 or going to the else block. This algorithm traverses the entire binary search tree and performs this operation at each node.
 
 The best case for this algorithm is that the first 10 nodes are the largest and thus AddToArray is only called 10 times and then not called again for the rest of the binary search tree traversal. Thus the best case time complexity is O(n), where n represents the count of nodes in the tree.
 
