@@ -2,7 +2,7 @@
 
 ## Brief
 
-This project was part of the assessment in my Algorithms and Complexity class. It is written in C++.
+This project was part of the assessment in my Algorithms and Complexity class.
 
 ## Usage
 
