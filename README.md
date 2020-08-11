@@ -33,9 +33,9 @@ ALGORITHM GetIndex(Movies[10], Movie, Count)
     // Count the number of Movies in the Movies Array
     // Output: Returns the index
  
-Ans ← -1 
-L ← 0
-R ← Count - 1
+    Ans ← -1 
+    L ← 0
+    R ← Count - 1
     
     while L ≤ R
         M ← (L + R) / 2
