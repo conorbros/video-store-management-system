@@ -24,7 +24,6 @@ The project contains some prefilled data to make testing the software easier, to
 
 ## Top 10 Algorithm Analysis 
 
-Top 10 Algorithm
 ```
 ALGORITHM GetIndex(Movies[10], Movie, Count)
     // Gets the index that the supplied Movie should be inserted into
