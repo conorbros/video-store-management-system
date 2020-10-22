@@ -24,7 +24,7 @@ The project contains some prefilled data to make testing the software easier, to
 
 ## Top 10 Algorithm Analysis 
 
-```
+```C++
 ALGORITHM GetIndex(Movies[10], Movie, Count)
     // Gets the index that the supplied Movie should be inserted into
     // Inputs: An array Movies containing the current largest elements, 
@@ -52,7 +52,7 @@ ALGORITHM GetIndex(Movies[10], Movie, Count)
     return Ans + 1
 ```
 The basic operation chosen for this algorithm is the comparisons between Movies[M] and Movie. The best case is where the index for the new movie is to be inserted at is the exact midpoint with an efficiency of O(1). The worst case is when the new index is at the front or the end of the array. The time complexity for this case is O(log n + 1). Since the array will have a maximum of 10 elements, this means that the worst case efficiency will be O(log 10 + 1) since log(10) and 1 are constant values. Meaning the overall efficiency is O(1).
-```
+```C++
 ALGORITHM AddToArray(Movies[10], Movie, Count)
     // Adds the supplied Movie to the Movies Array
     // Input: Movies: array to add Movie to. Count: number of Movies already in the array
@@ -76,7 +76,7 @@ ALGORITHM AddToArray(Movies[10], Movie, Count)
     Movies[Location] ← Movies
 ```
 The best case for this algorithm will only occur once, when the count is zero and the only index available to insert at is 0. The efficiency is O(1) in this case. The worst case happens when every Movie has to be added to the end of Array, meaning that the worst case complexity of O(1) will occur and all the elements must be shifted back one place to make room for the new Movie at the end of the Movies array which is the largest shift that can occur. The basic operation chosen for this algorithm is the array shifting in the if else block. When the Count is below 10, everything after the new index must be pushed forward, whereas when the count is above 10, everything behind the new location must be pushed back, which pushes the smallest element out of the array to make space for the new one. When Count is below 10, the operation takes O(Count - Location), with n being the location of the new element, since both are guaranteed to be below 10, this is O(1). When the Count is above 10, the operation takes O(Location), since Location is guaranteed to be below 10, the efficiency is O(1). Thus the overall efficiency for this algorithm is O(1).
-```
+```C++
 ALGORITHM GetTopTen(Movies[10], Count, T)
     // Traverses the binary search tree in order and fills the supplied array with the 10 largest 
     // elements. 
